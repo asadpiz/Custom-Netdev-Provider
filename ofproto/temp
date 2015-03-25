@@ -1,0 +1,36 @@
+int xf_delete_rule(int rule_id) {
+    int cnode = 1;
+    struct xf_node* node_set;
+    struct xf_rule* rule;
+    int match = 0;
+    int *temp_rule_id;
+
+    node_set = tree->node_set;
+    rule = tree->rule;
+
+    for (cnode; cnode < tree->num_nodes; cnode++) {
+        if(!node_set[cnode].empty_list)
+        for(i; i < node_set[cnode].node_rules; i++) {
+            if(node_set[cnode].rule_id[i] == rule_id) {
+                match = i;
+                break;
+            }
+        }
+        if(match) {
+            break;
+        }
+    }
+    
+    if(match) {
+        temp_rule_id = (int*)calloc(node_set[cnode].node_rules-1, sizeof(int));
+        j=0;
+        for(i=0; i < node_set[cnode].node_rules; i++) {
+            if(i != match) {
+                temp_rule_id[j] = node_set[cnode].rule_id[i];
+                j++;
+            }
+        }
+        free(node_set[cnode].rule_id);
+        node_set[cnode].rule_id = temp_rule_id;
+        node_set[cnode].node_rules--;
+    }

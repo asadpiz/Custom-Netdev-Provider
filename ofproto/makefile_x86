@@ -1,0 +1,31 @@
+CC=gcc
+LDFLAGS=-lpthread -lm #-lssl -lcrypto -lpcap -lrt
+#check and remove warnings with Wno-
+CFLAG=-I. -g -Wno-error -Wall -W -Wextra \
+-Wno-sign-compare -Wno-conversion -Wno-bad-function-cast\
+-Wshadow -Wmissing-declarations -Wstrict-prototypes -Wmissing-prototypes -Wformat -Wunused-parameter -Wold-style-definition -Wcast-align -Wstrict-aliasing -Wparentheses -Wsequence-point -Wdeclaration-after-statement -Wundef -Wmissing-field-initializers -Wpointer-arith -Wformat-security -Wswitch-enum -Wnested-externs -Wredundant-decls -Wdisabled-optimization -Woverride-init -pedantic #-std=c99 -O3
+
+all: dheap list mtt hal hypercuts nova
+
+nova: xf_nova_test.c xf_stdinc.c xf_hypercuts.c xf_dheap.c xf_list.c xf_mtt.c xf_acl.c
+	${CC} ${CFLAG} xf_nova_test.c xf_stdinc.c xf_hypercuts.c xf_dheap.c xf_list.c xf_mtt.c xf_acl.c -o nova $(LDFLAGS)
+
+hypercuts: xf_hypercuts_test.c xf_stdinc.c xf_hypercuts.c xf_dheap.c xf_list.c
+	${CC} ${CFLAG} xf_hypercuts_test.c xf_stdinc.c xf_hypercuts.c xf_dheap.c xf_list.c -o hypercuts $(LDFLAGS)
+
+dheap: xf_dheap_test.c xf_stdinc.c xf_dheap.c
+	$(CC) ${CFLAG} xf_dheap_test.c xf_stdinc.c xf_dheap.c -o dheap $(LDFLAGS)
+
+list: xf_list_test.c xf_stdinc.c xf_list.c
+	$(CC) ${CFLAG} xf_list_test.c xf_stdinc.c xf_list.c -o list $(LDFLAGS)
+
+mtt: xf_mtt_test.c xf_mtt.c xf_dheap.c xf_list.c xf_stdinc.c xf_hypercuts.c  
+	$(CC) $(CFLAG) xf_mtt_test.c xf_mtt.c xf_hal.c xf_dheap.c xf_list.c xf_stdinc.c xf_hypercuts.c -o mtt $(LDFLAGS)
+
+hal: xf_hal_test.c xf_hal.c xf_mtt.c xf_dheap.c xf_list.c xf_stdinc.c xf_hypercuts.c
+	$(CC) $(CFLAG) xf_hal_test.c xf_hal.c xf_mtt.c xf_dheap.c xf_list.c xf_stdinc.c xf_hypercuts.c -o hal $(LDFLAGS)
+
+clean: reset
+	rm -rf dheap list hal mtt hypercuts nova
+reset:
+	rm -f TCAM

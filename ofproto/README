@@ -1,0 +1,14 @@
+============================HAL prototype for NOVA1=========================
+
+This folder consist of implementation of NOVA1. This contains hypercuts as VTT,
+MTT and HAL for NOVA1.
+
+****************************Instructions************************************
+
+For compiling the code, run
+
+>> make;
+
+After successfull make, please run 
+
+>> ./run
