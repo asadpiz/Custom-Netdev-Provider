@@ -1,5 +1,5 @@
-<b>Port of OVS for Intel Platforms. This involves writing a custom netdev provider. Additionally OVS command line functions
-i.e., ovs-vsctl, ovs-ofctl were modified to take additional custom arguments.</b>
+Port of OVS for Intel Platforms. This involves writing a custom netdev provider. Additionally OVS command line functions
+i.e., ovs-vsctl, ovs-ofctl were modified to take additional custom arguments.
 
 
 
